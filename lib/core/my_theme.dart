@@ -16,6 +16,7 @@ class MyThemeData {
       surface: Color(0xFFF0F0F0),
       onSurface: Color(0xFF1C1C1C),
       onTertiary: Color(0xFFF0F0F0),
+        secondaryFixed: Color(0xFFF4F7FF)
     ),
     textTheme: TextTheme(
       bodySmall:  GoogleFonts.inter(
@@ -38,6 +39,11 @@ class MyThemeData {
         fontWeight: FontWeight.bold,
         color: Color(0xFF1C1C1C),
       ),
+      labelSmall: GoogleFonts.inter(
+        color: Color(0xFF0E3A99),
+        fontSize: 14,
+        fontWeight: FontWeight.w600
+      )
     ),
   );
   static ThemeData darkTheme = ThemeData(
@@ -53,6 +59,7 @@ class MyThemeData {
       surface: Color(0xFF001440),
       onSurface: Color(0xFFFFFFFF),
       onTertiary: Color(0xFFF0F0F0),
+      secondaryFixed: Color(0xFF000F30)
     ),
 
   );

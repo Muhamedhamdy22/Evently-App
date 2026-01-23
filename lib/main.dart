@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/screens/onboarding_screens/onboarding_screen1.dart';
 import 'package:evently_app/screens/onboarding_screens/onboarding_screens.dart';
+import 'package:evently_app/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'core/my_theme.dart';
@@ -28,10 +30,13 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
       themeMode: ThemeMode.light,
-      initialRoute: OnboardingScreens.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         OnboardingScreens.routeName : (context) => OnboardingScreens(),
         HomeScreen.routeName : (context) => HomeScreen(),
+        OnboardingScreen1.routeName : (context) => OnboardingScreen1(),
+        SplashScreen.routeName : (context) => SplashScreen(),
+
       },
     );
   }
