@@ -7,7 +7,7 @@ class MyThemeData {
     appBarTheme: AppBarTheme(centerTitle: true),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      primary: primary,
+      primary: Color(0xFF0E3A99),
       onPrimary:Color(0xFF686868),
       secondary: Color(0xFF0E3A99),
       onSecondary: Colors.black,
