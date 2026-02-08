@@ -19,6 +19,16 @@ class MyThemeData {
         secondaryFixed: Color(0xFFF4F7FF)
     ),
     textTheme: TextTheme(
+        displayMedium:  GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF0E3A99),
+        ),
+      bodyLarge:  GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: Color(0xFF0E3A99),
+      ),
       bodySmall:  GoogleFonts.inter(
         color: Color(0xFFF0F0F0),
         fontSize: 20,

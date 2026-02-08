@@ -1,17 +1,25 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/providers/theme_provider.dart';
+import 'package:evently_app/screens/auth/login_screen.dart';
+import 'package:evently_app/screens/auth/register_screen.dart';
 import 'package:evently_app/screens/onboarding_screens/onboarding_screen1.dart';
 import 'package:evently_app/screens/onboarding_screens/onboarding_screens.dart';
 import 'package:evently_app/screens/splash_screen/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/my_theme.dart';
+import 'firebase_options.dart';
 import 'screens/home_screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     EasyLocalization(
@@ -40,12 +48,14 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
       themeMode: myProvider.themeMode,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: RegisterScreen.routeName,
       routes: {
         OnboardingScreens.routeName: (context) => OnboardingScreens(),
         HomeScreen.routeName: (context) => HomeScreen(),
         OnboardingScreen1.routeName: (context) => OnboardingScreen1(),
         SplashScreen.routeName: (context) => SplashScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName: (context) => RegisterScreen(),
       },
     );
   }
