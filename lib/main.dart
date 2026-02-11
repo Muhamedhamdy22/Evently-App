@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/providers/theme_provider.dart';
+import 'package:evently_app/screens/add_event/add_event_screen.dart';
 import 'package:evently_app/screens/auth/login_screen.dart';
 import 'package:evently_app/screens/auth/register_screen.dart';
 import 'package:evently_app/screens/onboarding_screens/onboarding_screen1.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
       themeMode: myProvider.themeMode,
-      initialRoute: RegisterScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
         OnboardingScreens.routeName: (context) => OnboardingScreens(),
         HomeScreen.routeName: (context) => HomeScreen(),
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (context) => SplashScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => RegisterScreen(),
+        AddEventScreen.routeName: (context) => AddEventScreen(),
       },
     );
   }
