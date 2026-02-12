@@ -53,6 +53,7 @@ class MyThemeData {
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
+
         labelMedium: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w500,
