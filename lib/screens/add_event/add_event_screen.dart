@@ -1,3 +1,4 @@
+import 'package:evently_app/models/task_model.dart';
 import 'package:evently_app/providers/add_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,8 @@ class AddEventScreen extends StatelessWidget {
 
   AddEventScreen({super.key});
 
+  var titleController = TextEditingController();
+  var descriptionController = TextEditingController();
   List<String> categories = [
     "Sport",
     "Exhibition",
@@ -54,7 +57,8 @@ class AddEventScreen extends StatelessWidget {
                         },
                         child: Chip(
                           label: Text(categories[index]),
-                          backgroundColor: index == provider.selectedCategoryIndex
+                          backgroundColor:
+                              index == provider.selectedCategoryIndex
                               ? Theme.of(context).colorScheme.primary
                               : Colors.transparent,
                           labelStyle: GoogleFonts.poppins(
@@ -79,33 +83,49 @@ class AddEventScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Title" , style: Theme.of(context).textTheme.titleSmall,),
+                      Text(
+                        "Title",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ],
                   ),
                   SizedBox(height: 4),
                   TextField(
+                    style: TextStyle(fontSize: 14),
+                    controller: titleController,
                     decoration: InputDecoration(
-                      hint: Text("Event Title" , style: Theme.of(context).textTheme.headlineMedium,),
+                      hint: Text(
+                        "Event Title",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18)
-                      )
+                        borderRadius: BorderRadius.circular(18),
+                      ),
                     ),
                   ),
                   SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Description" , style: Theme.of(context).textTheme.titleSmall,),
+                      Text(
+                        "Description",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ],
                   ),
                   SizedBox(height: 8),
                   TextField(
-                    maxLines: 3,
+                    style: TextStyle(fontSize: 14),
+                    controller: descriptionController,
+                    maxLines: 5,
                     decoration: InputDecoration(
-                        hint: Text("Event Description...." , style: Theme.of(context).textTheme.headlineMedium,),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(18)
-                        )
+                      hint: Text(
+                        "Event Description",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
                     ),
                   ),
                   SizedBox(height: 2),
@@ -114,27 +134,54 @@ class AddEventScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Event Date" , style: Theme.of(context).textTheme.labelMedium,),
+                        child: Text(
+                          "Event Date",
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                       ),
-                      Text("21/8/2004"),
+                      GestureDetector(
+                        onTap: () async {
+                         DateTime ? chosenDate= await showDatePicker(
+                            context: context,
+                            initialDate: provider.selectedDate,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.now().add(Duration(days: 365)),
+                          ); provider.changeDate(chosenDate?? DateTime.now());
+                        },
+                        child: Text(
+                          provider.selectedDate.toString().substring(0, 10),
+                        ),
+                      ),
                     ],
                   ),
                   // SizedBox(height: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text("Event Time" , style: Theme.of(context).textTheme.labelMedium,),
-                      ),
-                      Text("11 : 55"),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: const EdgeInsets.all(4.0),
+                  //       child: Text("Event Time", style: Theme
+                  //           .of(context)
+                  //           .textTheme
+                  //           .labelMedium,),
+                  //     ),
+                  //     Text("11 : 55"),
+                  //   ],
+                  // ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.pushNamed(context, routeName);
+                        provider.addEvent(
+                          TaskModel(
+                            title: titleController.text,
+                            date: provider.selectedDate.millisecondsSinceEpoch,
+                            category:
+                                categories[provider.selectedCategoryIndex],
+                            description: descriptionController.text,
+                          ),
+                        );
+                        Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -145,7 +192,7 @@ class AddEventScreen extends StatelessWidget {
                       ),
                       child: Text(
                         "Add event",
-                        style:  GoogleFonts.inter(
+                        style: GoogleFonts.inter(
                           color: Color(0xFFF0F0F0),
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
