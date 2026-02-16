@@ -14,9 +14,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomePageProvider()..getTasks(),
+      create: (context) => HomePageProvider()..getStreamTasks(),
       builder: (context, child) {
         var provider = Provider.of<HomePageProvider>(context);
+        var providerWatch = context.watch<HomePageProvider>();
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -60,6 +61,8 @@ class HomePage extends StatelessWidget {
                     ? Center(child: CircularProgressIndicator())
                     : provider.errorMassage.isNotEmpty
                     ? Center(child: Text(provider.errorMassage))
+                    : providerWatch.tasks.isEmpty
+                    ? Center(child: Text("No Tasks"))
                     : ListView.separated(
                         itemBuilder: (context, index) {
                           return SizedBox(
@@ -71,7 +74,7 @@ class HomePage extends StatelessWidget {
                                     18,
                                   ),
                                   child: Image.asset(
-                                    "assets/images/${provider.tasks[index].category}.png",
+                                    "assets/images/${providerWatch.tasks[index].category}.png",
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
@@ -95,7 +98,7 @@ class HomePage extends StatelessWidget {
                                         child: Text(
                                           formatter.format(
                                             DateTime.fromMillisecondsSinceEpoch(
-                                              provider.tasks[index].date,
+                                              providerWatch.tasks[index].date,
                                             ),
                                           ),
                                           style: Theme.of(
@@ -116,15 +119,27 @@ class HomePage extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              provider.tasks[index].title,
+                                              providerWatch.tasks[index].title,
                                               style: GoogleFonts.poppins(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Color(0xFF1C1C1C),
                                               ),
                                             ),
-                                            Icon(
-                                              Icons.favorite_border_outlined,
+                                            GestureDetector(
+                                              onTap: () {
+                                                var task =
+                                                    providerWatch.tasks[index];
+                                                task.isFav = !task.isFav;
+                                                FirebaseFunction.updateTask(
+                                                  task,
+                                                );
+                                              },
+                                              child: Icon(
+                                                providerWatch.tasks[index].isFav
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border_outlined,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -139,7 +154,7 @@ class HomePage extends StatelessWidget {
                         separatorBuilder: (context, index) {
                           return SizedBox(height: 12);
                         },
-                        itemCount: provider.tasks.length,
+                        itemCount: providerWatch.tasks.length,
                       ),
               ),
             ],
