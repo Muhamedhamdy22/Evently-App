@@ -22,9 +22,28 @@ class FirebaseFunction {
     task.id=doc.id;
      return doc.set(task);
   }
-
-  static Stream<QuerySnapshot<TaskModel>> getStreamTasks(){
+  static Future<void> deleteTask(TaskModel task){
     var collection = getTaskCollection();
+    return collection.doc(task.id).delete();
+  }
+
+  static Future<void> updateTask(TaskModel task){
+    var collection = getTaskCollection();
+     return collection.doc(task.id).update(task.toJson());
+  }
+
+
+  static Stream<QuerySnapshot<TaskModel>> getFavoriteTasks(){
+    var collection = getTaskCollection();
+     return collection.where("isFav" , isEqualTo: true).snapshots();
+  }
+  static Stream<QuerySnapshot<TaskModel>> getStreamTasks({String? category}){
+    var collection = getTaskCollection();
+
+    if(category !=null){
+      return collection.where("category" , isEqualTo: category).snapshots();
+
+    }
     return collection.snapshots();
   }
   static Future<QuerySnapshot<TaskModel>> getTasks(){

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:evently_app/screens/add_event/add_event_screen.dart';
@@ -21,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseFirestore.instance.enableNetwork();
 
   runApp(
     EasyLocalization(
