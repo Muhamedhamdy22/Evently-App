@@ -1,5 +1,6 @@
 import 'package:evently_app/models/task_model.dart';
 import 'package:evently_app/providers/add_event_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -175,6 +176,7 @@ class AddEventScreen extends StatelessWidget {
                         provider.addEvent(
                           TaskModel(
                             title: titleController.text,
+                            userId: FirebaseAuth.instance.currentUser!.uid,
                             date: provider.selectedDate.millisecondsSinceEpoch,
                             category:
                                 categories[provider.selectedCategoryIndex],
