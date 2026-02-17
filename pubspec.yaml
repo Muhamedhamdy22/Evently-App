@@ -2,7 +2,6 @@ name: evently_app
 description: "A new Flutter project."
 publish_to: 'none'
 version: 1.0.0+1
-
 environment:
   sdk: ^3.10.1
 dependencies:
@@ -17,7 +16,7 @@ dependencies:
   firebase_auth: ^6.1.4
   chip_list: ^3.1.0
   cloud_firestore: ^6.1.2
-
+  intl: ^0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
