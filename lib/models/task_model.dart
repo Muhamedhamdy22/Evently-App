@@ -2,6 +2,7 @@ class TaskModel {
   String title;
   String description;
   String category;
+  bool isFav;
   int date;
   String id;
 
@@ -10,6 +11,7 @@ class TaskModel {
     required this.date,
     required this.category,
     required this.description,
+    this.isFav = false,
     this.id = "",
   });
 
@@ -19,6 +21,7 @@ class TaskModel {
     date: json["date"],
     category: json["category"],
     description: json["description"],
+    isFav: json["isFav"],
     id: json["id"],
   );
 
@@ -28,6 +31,7 @@ class TaskModel {
       "date" : date,
       "category" : category,
       "description" : description,
+      "isFav" : isFav,
       "id" : id,
     };
   }
