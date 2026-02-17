@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/models/onboarding_data.dart';
 import 'package:evently_app/models/onboarding_list.dart';
+import 'package:evently_app/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen1 extends StatefulWidget {
@@ -25,7 +26,9 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
         title: Image.asset("assets/images/logo.png"),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, LoginScreen.routeName);
+            },
             child: Text("Skip".tr(), style: Theme.of(context).textTheme.labelSmall),
           ),
         ],
@@ -92,7 +95,10 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
                     setState(() {
                       page++;
                     });
-                  } else {}
+                  } else {
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  }
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF0E3A99),

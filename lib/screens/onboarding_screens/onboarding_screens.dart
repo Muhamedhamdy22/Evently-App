@@ -21,138 +21,140 @@ class OnboardingScreens extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Image.asset("assets/images/logo.png")),
 
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          spacing: 23,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset("assets/images/being.png", width: double.infinity),
-            Text(
-              "onboardingTittle".tr(),
-              style: context.getLargeTittle(),
-            ),
-            Text(
-              "onboardingSubTittle".tr(),
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-
-            Column(
-              spacing: 16,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "language".tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadiusGeometry.circular(24),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            spacing: 23,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset("assets/images/being.png", width: double.infinity),
+              Text(
+                "onboardingTittle".tr(),
+                style: context.getLargeTittle(),
+              ),
+              Text(
+                "onboardingSubTittle".tr(),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+        
+              Column(
+                spacing: 16,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "language".tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(right: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusGeometry.circular(24),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                context.setLocale(Locale('en', 'US'));
+                              },
+                              child: languageIconWidget(
+                                "ue",
+                                !isEnglish,
+                                context,
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            InkWell(
+                              onTap: () {
+                                context.setLocale(Locale('ar', 'EG'));
+                              },
+                              child: languageIconWidget("eg", isEnglish, context),
+                            ),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              context.setLocale(Locale('en', 'US'));
-                            },
-                            child: languageIconWidget(
-                              "ue",
-                              !isEnglish,
-                              context,
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          InkWell(
-                            onTap: () {
-                              context.setLocale(Locale('ar', 'EG'));
-                            },
-                            child: languageIconWidget("eg", isEnglish, context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "theme".tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        right: provider.themeMode == ThemeMode.dark ? 0 : 4,
-                        left: provider.themeMode == ThemeMode.light ? 0 : 4,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadiusGeometry.circular(24),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              provider.ChangeTheme(ThemeMode.light);
-                            },
-                            child: themeIconWidget(
-                              "sun",
-                              provider.themeMode != ThemeMode.light,
-                              context,
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          InkWell(
-                            onTap: () {
-                              provider.ChangeTheme(ThemeMode.dark);
-                            },
-                            child: themeIconWidget(
-                              "moon",
-                              provider.themeMode == ThemeMode.light,
-                              context,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, OnboardingScreen1.routeName);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(16),
+                    ],
                   ),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
-                child: Text(
-                  "start".tr(),
-                  style:  GoogleFonts.inter(
-                    color: Color(0xFFF0F0F0),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "theme".tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          right: provider.themeMode == ThemeMode.dark ? 0 : 4,
+                          left: provider.themeMode == ThemeMode.light ? 0 : 4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusGeometry.circular(24),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                provider.ChangeTheme(ThemeMode.light);
+                              },
+                              child: themeIconWidget(
+                                "sun",
+                                provider.themeMode != ThemeMode.light,
+                                context,
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            InkWell(
+                              onTap: () {
+                                provider.ChangeTheme(ThemeMode.dark);
+                              },
+                              child: themeIconWidget(
+                                "moon",
+                                provider.themeMode == ThemeMode.light,
+                                context,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, OnboardingScreen1.routeName);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(16),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Text(
+                    "start".tr(),
+                    style:  GoogleFonts.inter(
+                      color: Color(0xFFF0F0F0),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

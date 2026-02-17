@@ -2,9 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/core/firebase_function.dart';
 import 'package:evently_app/models/task_model.dart';
 import 'package:evently_app/providers/home_page_provider.dart';
+import 'package:evently_app/screens/edit_event/edit_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../details_event/details_event_screen.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -22,7 +25,6 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // SizedBox(height: 12,),
               SizedBox(
                 height: 40,
                 child: ListView.separated(
@@ -55,7 +57,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-
               Expanded(
                 child: provider.isLoading
                     ? Center(child: CircularProgressIndicator())
@@ -64,98 +65,107 @@ class HomePage extends StatelessWidget {
                     : providerWatch.tasks.isEmpty
                     ? Center(child: Text("No Tasks"))
                     : ListView.separated(
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 193,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadiusGeometry.circular(
-                                    18,
-                                  ),
-                                  child: Image.asset(
-                                    "assets/images/${providerWatch.tasks[index].category}.png",
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(12),
-                                  height: double.infinity,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            18,
-                                          ),
-                                          color: Color(0xFFF0F0F0),
-                                        ),
-                                        child: Text(
-                                          formatter.format(
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                              providerWatch.tasks[index].date,
-                                            ),
-                                          ),
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.displayMedium,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            18,
-                                          ),
-                                          color: Color(0xFFF0F0F0),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              providerWatch.tasks[index].title,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xFF1C1C1C),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                var task =
-                                                    providerWatch.tasks[index];
-                                                task.isFav = !task.isFav;
-                                                FirebaseFunction.updateTask(
-                                                  task,
-                                                );
-                                              },
-                                              child: Icon(
-                                                providerWatch.tasks[index].isFav
-                                                    ? Icons.favorite
-                                                    : Icons.favorite_border_outlined,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          DetailsEventScreen.routeName,
+                          arguments: providerWatch.tasks[index],
+                        );
+                      },
+                      child: SizedBox(
+                        height: 193,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(
+                                18,
+                              ),
+                              child: Image.asset(
+                                "assets/images/${providerWatch.tasks[index].category}.png",
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
                             ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(height: 12);
-                        },
-                        itemCount: providerWatch.tasks.length,
+                            Container(
+                              padding: EdgeInsets.all(12),
+                              height: double.infinity,
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        18,
+                                      ),
+                                      color: Color(0xFFF0F0F0),
+                                    ),
+                                    child: Text(
+                                      formatter.format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                          providerWatch.tasks[index].date,
+                                        ),
+                                      ),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.displayMedium,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        18,
+                                      ),
+                                      color: Color(0xFFF0F0F0),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          providerWatch.tasks[index].title,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xFF1C1C1C),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            var task =
+                                            providerWatch.tasks[index];
+                                            task.isFav = !task.isFav;
+                                            FirebaseFunction.updateTask(
+                                              task,
+                                            );
+                                          },
+                                          child: Icon(
+                                            providerWatch.tasks[index].isFav
+                                                ? Icons.favorite
+                                                : Icons.favorite_border_outlined,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 12);
+                  },
+                  itemCount: providerWatch.tasks.length,
+                ),
               ),
             ],
           ),
