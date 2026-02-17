@@ -7,6 +7,7 @@ class AddEventProvider extends ChangeNotifier {
   int selectedCategoryIndex=0;
   DateTime selectedDate = DateTime.now();
 
+ 
   changeDate(DateTime date) {
     selectedDate = date;
     notifyListeners();
