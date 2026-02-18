@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
       themeMode: myProvider.themeMode,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         OnboardingScreens.routeName: (context) => OnboardingScreens(),
         HomeScreen.routeName: (context) => HomeScreen(),

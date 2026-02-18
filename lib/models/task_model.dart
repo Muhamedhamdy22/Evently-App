@@ -5,12 +5,14 @@ class TaskModel {
   bool isFav;
   int date;
   String id;
+  String userId;
 
   TaskModel({
     required this.title,
     required this.date,
     required this.category,
     required this.description,
+    required this.userId,
     this.isFav = false,
     this.id = "",
   });
@@ -23,6 +25,7 @@ class TaskModel {
     description: json["description"],
     isFav: json["isFav"],
     id: json["id"],
+    userId: json["userId"],
   );
 
   Map<String , dynamic> toJson(){
@@ -33,6 +36,7 @@ class TaskModel {
       "description" : description,
       "isFav" : isFav,
       "id" : id,
+      "userId" : userId,
     };
   }
 
